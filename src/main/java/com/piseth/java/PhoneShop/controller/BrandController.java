@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.piseth.java.PhoneShop.DTO.BrandDTO;
 import com.piseth.java.PhoneShop.Entity.Brand;
-import com.piseth.java.PhoneShop.Entity.Model;
-import com.piseth.java.PhoneShop.mapper.Mapper;
+import com.piseth.java.PhoneShop.mapper.BrandMapper;
 import com.piseth.java.PhoneShop.service.BrandService;
 
 @RestController
@@ -24,24 +23,23 @@ public class BrandController {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody BrandDTO dto) {
-		Brand brand = Mapper.toBrand(dto);
+		Brand brand = BrandMapper.INSTANCE.toBrand(dto);
 		brand = brandService.create(brand);
-		
-		return ResponseEntity.ok(Mapper.toBrandDTO(brand));
+		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
 	}
-	
+
 	@GetMapping("{id}")
-	public ResponseEntity<?> getOneBrand(@PathVariable("id") Integer brandId){
+	public ResponseEntity<?> getOneBrand(@PathVariable("id") Integer brandId) {
 		Brand brand = brandService.getById(brandId);
-		
-		return ResponseEntity.ok(Mapper.toBrandDTO(brand));
+
+		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(brand));
 	}
-	
+
 	@PutMapping("{id}")
-	public ResponseEntity<?> update(@PathVariable("id") Integer brandId, @RequestBody BrandDTO brandDTO){
-		Brand brand = Mapper.toBrand(brandDTO);
+	public ResponseEntity<?> update(@PathVariable("id") Integer brandId, @RequestBody BrandDTO brandDTO) {
+		Brand brand = BrandMapper.INSTANCE.toBrand(brandDTO);
 		Brand updatedBrand = brandService.update(brandId, brand);
-		return ResponseEntity.ok(Mapper.toBrandDTO(updatedBrand));
+		return ResponseEntity.ok(BrandMapper.INSTANCE.toBrandDTO(updatedBrand));
 	}
-	
+
 }
