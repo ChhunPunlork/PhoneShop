@@ -1,5 +1,7 @@
 package com.piseth.java.PhoneShop.serviceImpl;
 
+import java.util.List;
+
 import org.hibernate.ResourceClosedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +27,6 @@ public class BrandServiceImpl implements BrandService {
 
 	@Override
 	public Brand getById(Integer id) {
-//		
 		return brandRepository.findById(id)
 //				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND, String.format("Brand with id = %d not found", id)))
 				.orElseThrow(() -> new ResourceNotFounException("Brand", id));
@@ -36,6 +37,20 @@ public class BrandServiceImpl implements BrandService {
 		Brand brand = getById(id);
 		brand.setName(brandUpdate.getName());// @TODO improve update
 		return brandRepository.save(brand);
+	}
+
+	@Override
+	public List<Brand> getBrands() {
+		return brandRepository.findAll();
+	}
+
+//	@Override
+//	public List<Brand> getBrands(String name) {
+//		return brandRepository.findByNameLike("%"+name+"%");
+//	}
+	@Override
+	public List<Brand> getBrands(String name) {
+		return brandRepository.findByNameLike(name);
 	}
 
 }
