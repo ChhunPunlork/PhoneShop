@@ -2,7 +2,9 @@ package com.piseth.java.PhoneShop.mapper;
 
 import com.piseth.java.PhoneShop.DTO.BrandDTO;
 import com.piseth.java.PhoneShop.Entity.Brand;
+import org.springframework.stereotype.Component;
 
+@Component
 public class Mapper {
 //	public static Brand toBrand(BrandDTO dto) {
 //		Brand brand = new Brand();
@@ -15,4 +17,11 @@ public class Mapper {
 		brand.setName(dto.getName());
 		return brand;
 	}
+
+    public static BrandDTO toBrandDTO(Brand brand) {
+        BrandDTO dto = new BrandDTO();
+        dto.setId(brand.getId());
+        dto.setName(brand.getName());
+        return dto;
+    }
 }
